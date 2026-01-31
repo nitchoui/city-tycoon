@@ -55,7 +55,7 @@ export class GameEngine {
   }
 
   startGame() {
-    if (this.state.turnOrder.length < 2) {
+    if (this.state.turnOrder.length < 1) { // Allow 1 player for local testing
         throw new Error("Not enough players");
     }
     this.state.phase = 'ROLL_DICE';

@@ -53,15 +53,15 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ gameState, playerId }) => {
       {/* Actions */}
       <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
         {gameState.phase === 'LOBBY' && gameState.turnOrder[0] === playerId && (
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={handleStartGame}
-                disabled={gameState.turnOrder.length < 2}
-            >
-              Start Game ({gameState.turnOrder.length}/6)
-            </Button>
-        )}
+             <Button 
+                 variant="contained" 
+                 color="primary" 
+                 onClick={handleStartGame}
+                 disabled={gameState.turnOrder.length < 1} // Allow 1 player
+             >
+               Start Game ({gameState.turnOrder.length}/6)
+             </Button>
+         )}
         
         {gameState.phase !== 'LOBBY' && (
             <>
