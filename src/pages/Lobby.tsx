@@ -9,6 +9,7 @@ const Lobby: React.FC = () => {
   const [roomId, setRoomId] = useState('');
   const { socket, connected } = useSocket();
   const navigate = useNavigate();
+  const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
   const handleCreate = () => {
     if (!name) return alert("Enter name");
@@ -28,7 +29,12 @@ const Lobby: React.FC = () => {
       <Paper sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Typography variant="h3" align="center" gutterBottom>City Tycoon</Typography>
         
-        {!connected && <Typography color="warning.main">Connecting to server...</Typography>}
+        {!connected && (
+            <Box sx={{ bgcolor: '#fff3e0', p: 2, borderRadius: 1 }}>
+                <Typography color="warning.main">Connecting to server at: {SOCKET_URL} ...</Typography>
+                <Typography variant="caption" display="block">If this takes long, the server might be waking up (Render free tier sleeps).</Typography>
+            </Box>
+        )}
 
         <TextField 
             label="Your Name" 

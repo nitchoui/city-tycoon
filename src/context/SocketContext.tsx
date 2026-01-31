@@ -18,12 +18,21 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_URL);
+    console.log('Attempting to connect to:', SOCKET_URL);
+    const newSocket = io(SOCKET_URL, {
+        transports: ['websocket', 'polling'],
+        reconnectionAttempts: 5,
+    });
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
       console.log('Connected to socket server');
       setConnected(true);
+    });
+
+    newSocket.on('connect_error', (err) => {
+        console.error('Socket connection error:', err);
+        setConnected(false);
     });
 
     newSocket.on('disconnect', () => {
