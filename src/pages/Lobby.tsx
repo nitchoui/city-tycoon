@@ -9,7 +9,7 @@ const Lobby: React.FC = () => {
   const [roomId, setRoomId] = useState('');
   const { socket, connected } = useSocket();
   const navigate = useNavigate();
-  const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  const SOCKET_URL = import.meta.env.VITE_API_URL || window.location.origin;
 
   const handleCreate = () => {
     if (!name) return alert("Enter name");

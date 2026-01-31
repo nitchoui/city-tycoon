@@ -10,5 +10,3 @@ services:
         value: 3001
       - key: NODE_ENV
         value: production
-      - key: CLIENT_URL
-        sync: false

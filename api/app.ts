@@ -44,24 +44,15 @@ app.use(
   },
 )
 
-/**
- * error handler middleware
- */
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(500).json({
-    success: false,
-    error: 'Server internal error',
-  })
-})
+// Serve static files from the client build directory
+const clientBuildPath = path.join(__dirname, '../../dist');
+app.use(express.static(clientBuildPath));
 
-/**
- * 404 handler
- */
-app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    error: 'API not found',
-  })
-})
+// Handle React routing, return all requests to React app
+app.get('*', (req: Request, res: Response) => {
+  // Check if file exists, otherwise send index.html
+  // But express.static handles files, so we just fallback to index.html
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
 
 export default app
